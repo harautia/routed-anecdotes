@@ -66,35 +66,43 @@ const CreateNew = (props) => {
 
   //  Problem was that first I was passing content, author and info parameters to addNew function
   //  this lead to problem that adding was not OK!
+  //  INPUT information has to be added in order to get rid of errors
+  
   const handleSubmit = (e) => {
     e.preventDefault()
     props.addNew({
-      content: content.value,
-      author: author.value,
-      info: info.value,
-      votes: 0
+    content: content.input.value,
+    author: author.input.value,
+    info: info.input.value,
+    votes: 0
     })
   navigate('/')
+  }
+
+  const handleReset = () => {
+    content.reset()
+    author.reset()
+    info.reset()
   }
 
   return (
     <div>
       <h2>create a new anecdote</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          content 
-          <input type={content.type} value={content.value} onChange={content.onChange} /> 
-        </div>
-        <div>
-          author 
-          <input type={author.type} value={author.value} onChange={author.onChange} /> 
-        </div>
-        <div>
-          url for more info 
-          <input type={info.type} value={info.value} onChange={info.onChange} />
-        </div>
-        <button>create</button>
-      </form>
+      <div>
+        <form onSubmit={handleSubmit}>
+          content: 
+            <input {...content.input} />
+          <br/> 
+          author: 
+            <input {...author.input} />
+          <br/> 
+          url for more info: 
+            <input {...info.input} />
+          <br/>  
+          <button>create</button>
+          <button type="button" onClick={handleReset}>reset</button>
+        </form>
+      </div>
     </div>
   )
 }
